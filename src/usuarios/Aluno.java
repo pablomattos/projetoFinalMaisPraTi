@@ -2,13 +2,14 @@ package usuarios;
 
 import DataUsuarios.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Aluno extends Pessoa{
     protected double notaFInalCurso;
 
     public Aluno(String nome, int telefone, Data dataNascimento,
-                 Date dataCriacaoUsuario, Date dataAtualicacaoUsuario, double notaFInalCurso) {
+                 LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario, double notaFInalCurso) {
 
         super(nome, telefone, dataNascimento, dataCriacaoUsuario, dataAtualicacaoUsuario);
         this.notaFInalCurso = notaFInalCurso;

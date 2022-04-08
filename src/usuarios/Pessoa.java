@@ -2,17 +2,18 @@ package usuarios;
 
 import DataUsuarios.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
     protected String nome;
     protected int telefone;
     protected Data dataNascimento;
-    protected Date dataCriacaoUsuario;
-    protected Date dataAtualicacaoUsuario;
+    protected LocalDate dataCriacaoUsuario;
+    protected LocalDate dataAtualicacaoUsuario;
 
     public Pessoa(String nome, int telefone, Data dataNascimento,
-                  Date dataCriacaoUsuario, Date dataAtualicacaoUsuario) {
+                  LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario) {
         this.nome = nome;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
@@ -48,12 +49,17 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public Date getDataCriacaoUsuario() {
-        return dataCriacaoUsuario;
+    public String getDataCriacaoUsuario() {
+        DateTimeFormatter dataCriacao = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        dataCriacaoUsuario = LocalDate.now();
+        return dataCriacao.format(dataCriacaoUsuario);
     }
 
-     public Date getDataAtualicacaoUsuario() {
-        return dataAtualicacaoUsuario;
+     public String getDataAtualicacaoUsuario() {
+         DateTimeFormatter dataAtualizacao = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+         dataAtualicacaoUsuario = LocalDate.now();
+         return dataAtualizacao.format(dataAtualicacaoUsuario);
+
     }
 
     @Override
