@@ -4,9 +4,9 @@ import DataUsuarios.Data;
 import usuarios.Aluno;
 import usuarios.Pessoa;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FuncoesUsuario {
 
@@ -19,49 +19,51 @@ public class FuncoesUsuario {
     public boolean criarUsuario() {
         try {
             Pessoa usuario = new Pessoa();
-            Scanner dadosPessoa = new Scanner(System.in);
 
-            System.out.print("Nome: ");
-            String nomePessoa = dadosPessoa.nextLine();
+            String nomePessoa = JOptionPane.showInputDialog("Nome: ");
             usuario.setNome(nomePessoa);
 
             System.out.print("Telefone: ");
-            int tel = dadosPessoa.nextInt();
+            int tel = Integer.parseInt(JOptionPane.showInputDialog("Telefone: "));
             usuario.setTelefone(tel);
 
-            System.out.print("Data de nascimento ");
+            JOptionPane.showMessageDialog(null, "DATA DE NASCIMENTO");
 
-            System.out.print("\ndia: ");
-            int diaNasc = dadosPessoa.nextInt();
+            int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("Dia: "));
             if(diaNasc < 0 || diaNasc > 31){
-                System.out.println("DIA INVALIDO, DIGITE UM DIA VALIDO");
-                diaNasc = dadosPessoa.nextInt();
+                diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA INVALIDO," +
+                        " DIGITE UM DIA VALIDO: "));
             }
 
             System.out.printf("mes: ");
-            int mesNasc = dadosPessoa.nextInt();
+            int mesNasc = Integer.parseInt(JOptionPane.showInputDialog("Mes: "));
             if(mesNasc < 0 || mesNasc > 12){
-                System.out.println("MES INVALIDO, DIGITE O NUMERO DE UM MES VALIDO");
-                mesNasc = dadosPessoa.nextInt();
+                mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES INVALIDO, " +
+                        "DIGITE O NUMERO DE UM MES VALIDO"));
             }
 
-            System.out.printf("ano: ");
-            int anoNasc = dadosPessoa.nextInt();
+            int anoNasc = Integer.parseInt(JOptionPane.showInputDialog("Ano: "));
             if(anoNasc < 0 || anoNasc > 2022){
-                System.out.println("ANO INVALIDO, DIGITE UM ANO VALIDO");
-                anoNasc = dadosPessoa.nextInt();
+                anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO INVALIDO, " +
+                        "DIGITE UM ANO VALIDO"));
             }
-
             usuario.setDataNascimento(new Data(diaNasc, mesNasc, anoNasc));
 
-            System.out.println("Data da criacao: "+usuario.getDataCriacaoUsuario());
-            System.out.println("Data da atualizacao: "+usuario.getDataAtualicacaoUsuario());
+            String dataCriacao = usuario.getDataCriacaoUsuario();
+            JOptionPane.showMessageDialog(null, "Data da criacao: " +
+                    dataCriacao);
 
-            System.out.println("Nota final do curso: ");
-            double notaFinalCurso = dadosPessoa.nextFloat();
-            if(notaFinalCurso >= 0){
+            String dataAtualizacao = usuario.getDataAtualicacaoUsuario();
+            JOptionPane.showMessageDialog(null, "Data da ultima " +
+                    "atualizacao: " +dataAtualizacao);
+
+            double notaFinalCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota " +
+                    "final do curso: " +
+                    "\nObs.: Case usuario nao seja aluno digite N"));
+            String letra = "N";
+            if(notaFinalCurso ==  Double.parseDouble(letra)){
                 usuarios02.add((Aluno) usuario);
-            }else{
+            }if(notaFinalCurso < 0 || notaFinalCurso > 10){
                 usuarios.add(usuario);
             }
         }catch (Exception e){
@@ -73,7 +75,8 @@ public class FuncoesUsuario {
 
 
     public List<Pessoa> mostrarUsuario() {
-        return null;
+
+        return this.usuarios;
     }
 
 
