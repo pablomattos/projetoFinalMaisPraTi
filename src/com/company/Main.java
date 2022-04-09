@@ -8,7 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        FuncoesUsuario funcoesUsuario = new FuncoesUsuario();
+        FuncoesUsuario criar = new FuncoesUsuario();
+        FuncoesUsuario mostrar = new FuncoesUsuario();
+        FuncoesUsuario deletar = new FuncoesUsuario();
+        FuncoesUsuario atualizar = new FuncoesUsuario();
 
         String opcao;
         while (true){
@@ -21,23 +24,25 @@ public class Main {
 
             switch (opcao){
                 case "1":
-                    funcoesUsuario.criarUsuario();
+                    criar.criarUsuario();
                     break;
 
                 case "2":
-                    funcoesUsuario.mostrarUsuario();
+                    mostrar.mostrarUsuario();
+                    break;
 
                 case "3":
-                    funcoesUsuario.atualizarUsuario();
+                    atualizar.atualizarUsuario();
                     break;
 
                 case "4":
-                    funcoesUsuario.deletarUsuario();
+                    deletar.deletarUsuario();
 
                 case "5":
                     System.exit(0);
                 default:
-                    System.out.println("OPCAO INVALIDA, SELECIONE UMA OPCAO VALIDA:");
+                    JOptionPane.showInputDialog("Opcao invalida, digite uma opcao valida: " );
+
             }
         }
 
