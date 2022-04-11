@@ -3,10 +3,10 @@ package usuarios;
 import DataUsuarios.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class Aluno extends Pessoa{
-    protected double notaFInalCurso;
+    protected double notaFInalCurso = 0;
 
     public Aluno(String nome, int telefone, Data dataNascimento,
                  LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario, double notaFInalCurso) {

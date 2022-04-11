@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-    protected String nome;
-    protected int telefone;
-    protected Data dataNascimento;
-    protected LocalDate dataCriacaoUsuario;
-    protected LocalDate dataAtualicacaoUsuario;
+    protected String nome = "";
+    protected int telefone = 0;
+    protected Data dataNascimento = new Data(10,12,1900);
+    protected LocalDate dataCriacaoUsuario = LocalDate.now();
+    protected LocalDate dataAtualicacaoUsuario = LocalDate.now();
 
     public Pessoa(String nome, int telefone, Data dataNascimento,
                   LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario) {
@@ -45,6 +45,7 @@ public class Pessoa {
         return dataNascimento;
     }
 
+
     public void setDataNascimento(Data dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
@@ -64,10 +65,10 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "NOME: "+this.nome +
+        return "\nNOME: "+this.nome +
                 "\nTELEFONE: "+ this.telefone +
                 "\nDATA DE NASCIMENTO: "+ this.dataNascimento +
                 "\nDATA DA CRIACAO: "+ this.dataCriacaoUsuario +
-                "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario;
+                "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario+"\n";
     }
 }

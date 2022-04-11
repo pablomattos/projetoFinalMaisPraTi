@@ -6,12 +6,10 @@ import javax.swing.*;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
-        FuncoesUsuario criar = new FuncoesUsuario();
-        FuncoesUsuario mostrar = new FuncoesUsuario();
-        FuncoesUsuario deletar = new FuncoesUsuario();
-        FuncoesUsuario atualizar = new FuncoesUsuario();
+        FuncoesUsuario operadorFuncoes = new FuncoesUsuario();
 
         String opcao;
         while (true){
@@ -24,19 +22,20 @@ public class Main {
 
             switch (opcao){
                 case "1":
-                    criar.criarUsuario();
+                    operadorFuncoes.criarUsuario();
                     break;
 
                 case "2":
-                    mostrar.mostrarUsuario();
+                    operadorFuncoes.mostrarUsuario();
                     break;
 
                 case "3":
-                    atualizar.atualizarUsuario();
+                    operadorFuncoes.deletarUsuario();
                     break;
 
                 case "4":
-                    deletar.deletarUsuario();
+                    operadorFuncoes.atualizarUsuario();
+                    break;
 
                 case "5":
                     System.exit(0);
