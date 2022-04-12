@@ -71,4 +71,6 @@ public class Pessoa {
                 "\nDATA DA CRIACAO: "+ this.dataCriacaoUsuario +
                 "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario+"\n";
     }
+
+
 }
