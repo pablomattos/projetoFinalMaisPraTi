@@ -1,6 +1,6 @@
-package Funcoes;
+package funcoes;
 
-import DataUsuarios.Data;
+import dataUsuarios.Data;
 import usuarios.Aluno;
 import usuarios.Pessoa;
 
@@ -10,15 +10,15 @@ import java.util.List;
 
 public class FuncoesUsuario {
 
-    List<Pessoa> clientes = new ArrayList<>();
+    List<Pessoa> pessoas = new ArrayList<>();
     List<Aluno> alunos = new ArrayList<>();
 
 
     public FuncoesUsuario() {
     }
 
-    public List<Pessoa> getClientes() {
-        return clientes;
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 
     public List<Aluno> getAlunos() {
@@ -34,8 +34,9 @@ public class FuncoesUsuario {
 
                 estudante = new Aluno();
 
-                String nomePessoa = JOptionPane.showInputDialog("NOME: ");
-                estudante.setNome(nomePessoa);
+                String nomeAluno = JOptionPane.showInputDialog("NOME: ");
+
+               estudante.setNome(nomeAluno);
 
                 String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
                         "Exemplo: 051999888777");
@@ -78,8 +79,7 @@ public class FuncoesUsuario {
                         " ATUALIZACAO: " + dataAtualizacao);
 
                 double notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota " +
-                        "final do curso: " +
-                        "\nObs.: Caso estudante nao seja aluno clique no botao OK"));
+                        "final do curso: "));
                     if(notaFCurso >= 0 && notaFCurso <= 10){
                         estudante.setNotaFinalCurso(notaFCurso);
                     }else if(notaFCurso < 0 || notaFCurso > 10){
@@ -141,7 +141,7 @@ public class FuncoesUsuario {
                 JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
                         " ATUALIZACAO: " +dataAtualizacao);
 
-                clientes.add(pessoa);
+                pessoas.add(pessoa);
                 JOptionPane.showMessageDialog(null, "Estudante "+
                         pessoa.getNome()+" foi criado com sucesso!");
             }catch (Exception e){
@@ -165,8 +165,8 @@ public class FuncoesUsuario {
 
         if (listaUsuariosEscolhida.equalsIgnoreCase("P")) {
             JOptionPane.showMessageDialog(null,"Relacao de pessoas: ");
-            for (Pessoa people : getClientes()) {
-                if (!getClientes().isEmpty()) {
+            for (Pessoa people : getPessoas()) {
+                if (!getPessoas().isEmpty()) {
                     System.out.println(people);
                 }
             }
@@ -196,9 +196,9 @@ public class FuncoesUsuario {
                 String usuarioADeletar = JOptionPane.showInputDialog("Digite o nome da " +
                         "pessoa a deletar: ");
                 int i = 0;
-                while(!clientes.get(i).getNome().equalsIgnoreCase(usuarioADeletar)){
+                while(!pessoas.get(i).getNome().equalsIgnoreCase(usuarioADeletar)){
                     i++;
-                    if (!clientes.get(i).getNome().equalsIgnoreCase(usuarioADeletar)){
+                    if (!pessoas.get(i).getNome().equalsIgnoreCase(usuarioADeletar)){
                         usuarioADeletar = JOptionPane.showInputDialog("Usuaria(o) inexistente," +
                                 " digite um nome existente. ");
 
@@ -209,8 +209,8 @@ public class FuncoesUsuario {
                         " este usuario?\n Digite S p/ sim ou N p/ nao.");
 
                 if(resposta.equalsIgnoreCase("S")){
-                    pessoaDeletada = clientes.get(i);
-                    clientes.remove(pessoaDeletada);
+                    pessoaDeletada = pessoas.get(i);
+                    pessoas.remove(pessoaDeletada);
                     JOptionPane.showMessageDialog(null, "Usuaria(o) "+
                             pessoaDeletada.getNome()+" foi deletado com sucesso!");
                 }
@@ -265,27 +265,37 @@ public class FuncoesUsuario {
                         " (Digite S p/ sim ou N p/ nao)");
 
         if(usuarioEscolhido.equalsIgnoreCase("s")){
-            Pessoa usuarioAAtualizar;
+            Aluno usuarioAAtualizar;
 
             try{
                 String nomeUsuarioAtualizar = JOptionPane.showInputDialog("Digite o nome do usuario\n " +
                         "que deseja atualizar: ");
                 int i = 0;
-                while (!clientes.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
+                while (!alunos.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
                     i++;
-                    if (!clientes.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
+                    if (!alunos.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
                         nomeUsuarioAtualizar = JOptionPane.showInputDialog("Usuario inexistente,\n" +
                                 " digite um nome existente. ");
 
                     }
                 }
-                usuarioAAtualizar = clientes.get(i);
+                usuarioAAtualizar = alunos.get(i);
                 JOptionPane.showMessageDialog(null,"Atualizando dados do usuario");
                 String nomePessoa = JOptionPane.showInputDialog("NOME: ");
                 usuarioAAtualizar.setNome(nomePessoa);
 
 
-                String tel = JOptionPane.showInputDialog("TELEFONE: ");
+                String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
+                        "Exemplo: 051999888777");
+                int tamanho = tel.length();
+
+                while (!(tamanho == 12)){
+                    tel = JOptionPane.showInputDialog("QUANTIDADE DE DIGITOS DIFERENTE DE 12,\n DIGITE" +
+                            "  O TELEFONE COM DDD: \n" +
+                            "Exemplo: 051999888777");
+                    tamanho = tel.length();
+                }
+
                 usuarioAAtualizar.setTelefone(tel);
 
                 int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA DE NASCIMENTO: "));
@@ -315,7 +325,7 @@ public class FuncoesUsuario {
                 JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
                         " ATUALIZACAO: " +dataAtualizacao);
 
-                clientes.add(usuarioAAtualizar);
+                alunos.add(usuarioAAtualizar);
                 JOptionPane.showMessageDialog(null, "Estudante "+
                         usuarioAAtualizar.getNome()+"\n foi atualizado com sucesso!");
 
@@ -329,15 +339,15 @@ public class FuncoesUsuario {
                 String nomeUsuarioAtualizar = JOptionPane.showInputDialog("Digite o nome do usuario\n " +
                         "que deseja atualizar: ");
                 int i = 0;
-                while (!clientes.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
+                while (!pessoas.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
                     i++;
-                    if (!clientes.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
+                    if (!pessoas.get(i).getNome().equalsIgnoreCase(nomeUsuarioAtualizar)){
                         nomeUsuarioAtualizar = JOptionPane.showInputDialog("Usuario inexistente,\n" +
                                 " digite um nome existente. ");
 
                     }
                 }
-                usuarioAAtualizar = clientes.get(i);
+                usuarioAAtualizar = pessoas.get(i);
                 JOptionPane.showMessageDialog(null,"Atualizando dados do usuario");
                 String nomePessoa = JOptionPane.showInputDialog("NOME: ");
                 usuarioAAtualizar.setNome(nomePessoa);
@@ -373,7 +383,7 @@ public class FuncoesUsuario {
                 JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
                         " ATUALIZACAO: " +dataAtualizacao);
 
-                clientes.add(usuarioAAtualizar);
+                pessoas.add(usuarioAAtualizar);
                 JOptionPane.showMessageDialog(null, "Estudante "+
                         usuarioAAtualizar.getNome()+"\n foi atualizado com sucesso!");
 

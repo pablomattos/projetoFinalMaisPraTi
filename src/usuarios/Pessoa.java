@@ -1,6 +1,6 @@
 package usuarios;
 
-import DataUsuarios.Data;
+import dataUsuarios.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

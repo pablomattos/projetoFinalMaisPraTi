@@ -1,6 +1,6 @@
 package com.company;
 
-import Funcoes.FuncoesUsuario;
+import funcoes.FuncoesUsuario;
 
 import javax.swing.*;
 
