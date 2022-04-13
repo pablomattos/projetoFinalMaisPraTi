@@ -1,18 +1,17 @@
 package usuarios;
 
 import DataUsuarios.Data;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
     protected String nome = "";
-    protected int telefone = 0;
+    protected String telefone ;
     protected Data dataNascimento = new Data(10,12,1900);
     protected LocalDate dataCriacaoUsuario = LocalDate.now();
     protected LocalDate dataAtualicacaoUsuario = LocalDate.now();
 
-    public Pessoa(String nome, int telefone, Data dataNascimento,
+    public Pessoa(String nome, String telefone, Data dataNascimento,
                   LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario) {
         this.nome = nome;
         this.telefone = telefone;
@@ -33,11 +32,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -69,7 +68,8 @@ public class Pessoa {
                 "\nTELEFONE: "+ this.telefone +
                 "\nDATA DE NASCIMENTO: "+ this.dataNascimento +
                 "\nDATA DA CRIACAO: "+ this.dataCriacaoUsuario +
-                "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario+"\n";
+                "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario+
+                "\n__________________________________________________________";
     }
 
 

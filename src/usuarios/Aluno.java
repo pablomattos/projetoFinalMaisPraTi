@@ -6,9 +6,9 @@ import java.time.LocalDate;
 
 
 public class Aluno extends Pessoa{
-    protected double notaFinalCurso;
+    protected double notaFinalCurso = 0;
 
-    public Aluno(String nome, int telefone, Data dataNascimento,
+    public Aluno(String nome, String telefone, Data dataNascimento,
                  LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario, double notaFInalCurso) {
 
         super(nome, telefone, dataNascimento, dataCriacaoUsuario, dataAtualicacaoUsuario);
@@ -29,11 +29,12 @@ public class Aluno extends Pessoa{
     @Override
     public String toString() {
         return
-                "\n\n NOME: " + this.nome +
+                "\n\nNOME DO ALUNO: " + this.nome +
                 "\nTELEFONE: "+ this.telefone +
                 "\nDATA DE NASCIMENTO: " + this.dataNascimento +
                 "\nDATA DE CRIACAO DO USUARIO: " + this.dataCriacaoUsuario +
                 "\nDATA DA ULTIMA ATUALIZACAO DO USUARIO: " + this.dataAtualicacaoUsuario +
-                "\nNOTA FINAL DO CURSO: "+ this.notaFinalCurso;
+                "\nNOTA FINAL DO CURSO: "+ this.notaFinalCurso+
+                "\n________________________________________________________________________";
     }
 }
