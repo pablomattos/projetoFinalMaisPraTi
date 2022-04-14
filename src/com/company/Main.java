@@ -40,7 +40,7 @@ public class Main {
                 case "5":
                     System.exit(0);
                 default:
-                    JOptionPane.showInputDialog("Opcao invalida, digite uma opcao valida: " );
+                    JOptionPane.showMessageDialog(null,"Opcao invalida, digite uma opcao valida: " );
 
             }
         }
