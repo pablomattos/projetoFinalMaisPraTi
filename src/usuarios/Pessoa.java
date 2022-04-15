@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-    protected String nome = "";
+    protected String nome;
     protected String telefone ;
-    protected Data dataNascimento = new Data(10,12,1900);
+    protected Data dataNascimento;
     protected LocalDate dataCriacaoUsuario = LocalDate.now();
     protected LocalDate dataAtualicacaoUsuario = LocalDate.now();
 

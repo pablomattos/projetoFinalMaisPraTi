@@ -28,20 +28,23 @@ public class FuncoesUsuario {
     public boolean criarUsuario() {
         String escolherUsuario = JOptionPane.showInputDialog("Deseja criar uma pessoa ou alun@ ?" +
                 "\n     (digite A p/ aluno ou P p/ pessoa)");
+
         if(escolherUsuario.equalsIgnoreCase("A")) {
             Aluno aluno;
             try {
-
                 aluno = new Aluno();
 
-                String nomeAluno = JOptionPane.showInputDialog("NOME: ");
+                String nomeAluno = JOptionPane.showInputDialog("NOME COMPLETO: ");
                 if(!alunos.isEmpty()){
-                    int i = 0;
-                    while (alunos.get(i).getNome().equalsIgnoreCase(nomeAluno)){
-                        i++;
-                        nomeAluno = JOptionPane.showInputDialog(null,"O NOME DESTE ALUN@ JA" +
-                                " ESTA CADASTRADO, \n  CRIE UM NOME DE USUARIO DIFERENTE: ");
 
+                    for (int i = 0; i < alunos.size(); i++){
+                        while (alunos.get(i).getNome().equalsIgnoreCase(nomeAluno)){
+
+                            JOptionPane.showMessageDialog(null,"O NOME DESTE ALUN@ JA" +
+                                    " ESTA CADASTRADO, \n  CRIE UM NOME DE USUARIO DIFERENTE: ");
+                            nomeAluno = JOptionPane.showInputDialog("NOME COMPLETO: ");
+
+                        }
                     }
                 }
                aluno.setNome(nomeAluno);
@@ -108,13 +111,15 @@ public class FuncoesUsuario {
 
                 String nomePessoa = JOptionPane.showInputDialog("NOME COMPLETO: ");
                 if(!pessoas.isEmpty()){
-                    int i = 0;
-                    while (pessoas.get(i).getNome().equalsIgnoreCase(nomePessoa)){
-                        i++;
-                        nomePessoa = JOptionPane.showInputDialog("O NOME DESTA PESSOA JA" +
-                                " ESTA CADASTRADO, \n  CRIE UM NOME DE USUARIO DIFERENTE: ");
-                        criarUsuario();
+
+                    for(int i = 0; i < pessoas.size(); i ++){
+                        while (pessoas.get(i).getNome().equalsIgnoreCase(nomePessoa)){
+                            nomePessoa = JOptionPane.showInputDialog("O NOME DESTA PESSOA JA" +
+                                    " ESTA CADASTRADO, \n  CRIE UM NOME DE USUARIO DIFERENTE: ");
+                        }
+
                     }
+
                 }
                 pessoa.setNome(nomePessoa);
 
@@ -160,6 +165,7 @@ public class FuncoesUsuario {
                 pessoas.add(pessoa);
                 JOptionPane.showMessageDialog(null, "Usuario "+
                         pessoa.getNome()+" foi criado com sucesso!");
+
             }catch (Exception e){
                 return false;
             }
@@ -214,9 +220,9 @@ public class FuncoesUsuario {
     public boolean deletarUsuario() {
 
         String usuarioEscolhido = JOptionPane.showInputDialog(null,
-                "O usuario que deseja deletar eh alun@ ?\n" +
-                        " (Digite S p/ sim ou N p/ nao)");
-        if (usuarioEscolhido.equalsIgnoreCase("n")){
+                "Deseja deletar um alun@ ou uma pessoa?\n" +
+                        " (Digite A p/ aluno ou P p/ pessoa)");
+        if (usuarioEscolhido.equalsIgnoreCase("p")){
             Pessoa pessoaDeletada;
 
             try{
@@ -227,32 +233,41 @@ public class FuncoesUsuario {
                     JOptionPane.showMessageDialog(null,"         Nao ha " +
                             "pessoas cadastradas\n para deletar,cadastre uma pessoa no criar usuario.");
 
-                }else if (!pessoas.isEmpty()){
+                }else if (!pessoas.isEmpty()) {
                     int i = 0;
-                    while(!pessoas.get(i).getNome().equalsIgnoreCase(pessoaADeletar)){
+                    while(!pessoas.get(i).getNome().equalsIgnoreCase(pessoaADeletar)) {
                         i++;
-                        pessoaADeletar = JOptionPane.showInputDialog("Usuari@ inexistente," +
-                                " digite um nome existente,ou cancele para escolher outra funcao. ");
+                        if(!pessoas.get(i).getNome().equalsIgnoreCase(pessoaADeletar) && i == pessoas.size()){
+                            pessoaADeletar = JOptionPane.showInputDialog("Usuari@ inexistente," +
+                                    " digite um nome existente,ou cancele para escolher outra funcao. ");
+                        }else if(pessoas.get(i).getNome().equalsIgnoreCase(pessoaADeletar) && i == pessoas.size()){
+                            String resposta = JOptionPane.showInputDialog("Deseja realmente deletar" +
+                                    " esta pessoa?\n Digite S p/ sim ou N p/ nao.");
 
-                    }
+                            if (resposta.equalsIgnoreCase("S")) {
+                                pessoaDeletada = pessoas.get(i);
+                                pessoas.remove(pessoaDeletada);
+                                JOptionPane.showMessageDialog(null, "Usuari@ " +
+                                        pessoaDeletada.getNome() + " foi deletado com sucesso!");
+                                break;
+                            }else if(resposta.equalsIgnoreCase("N")){
+                                JOptionPane.showMessageDialog(null,"ESCOLHA OUTRO " +
+                                        "USUARIO QUE DESEJA DELETAR.");
+                                deletarUsuario();
 
-                    String resposta = JOptionPane.showInputDialog("Deseja realmente deletar" +
-                            " esta pessoa?\n Digite S p/ sim ou N p/ nao.");
-
-                    if(resposta.equalsIgnoreCase("S")){
-                        pessoaDeletada = pessoas.get(i);
-                        pessoas.remove(pessoaDeletada);
-                        JOptionPane.showMessageDialog(null, "Usuari@ "+
-                                pessoaDeletada.getNome()+" foi deletado com sucesso!");
+                            }else{
+                                while(resposta.equalsIgnoreCase("s")||resposta.equalsIgnoreCase("s")){
+                                    resposta = JOptionPane.showInputDialog("Digito invalido p/ deletar,\n" +
+                                            "digite S p/ sim ou N p/ nao. ");
+                                }
+                            }
+                        }
                     }
                 }
-
-
-
             }catch (Exception e){
                 return false;
             }
-        }else if (usuarioEscolhido.equalsIgnoreCase("s")){
+        }else if (usuarioEscolhido.equalsIgnoreCase("a")){
             Aluno alunoDeletado;
 
             try{
@@ -264,26 +279,28 @@ public class FuncoesUsuario {
 
                 }
                 else if(!alunos.isEmpty()){
-                    int i = 0;
-                    while(!alunos.get(i).getNome().equalsIgnoreCase(alunADeletar)){
-                        i++;
-                        if (!alunos.get(i).getNome().equalsIgnoreCase(alunADeletar)){
+
+                    for(int i = 0; i <= alunos.size(); i++){
+
+                        if ((!alunos.get(i).getNome().equalsIgnoreCase(alunADeletar))&& (i == alunos.size())){
+
                             alunADeletar = JOptionPane.showInputDialog("Alun@ inexistente," +
-                                    " digite um nome existente, ou cancele para escolher outra funcao. ");
-                            deletarUsuario();
+                                    " digite um nome existente,\n ou cancele para escolher outra funcao. ");
+
+
+                        }else if((alunos.get(i).getNome().equalsIgnoreCase(alunADeletar))){
+                            String resposta = JOptionPane.showInputDialog("Deseja realmente deletar" +
+                                    " este alun@ ? \n      Digite S p/ sim ou N p/ nao.");
+
+                            if(resposta.equalsIgnoreCase("S")){
+                                alunoDeletado = alunos.get(i);
+                                alunos.remove(alunoDeletado);
+                                JOptionPane.showMessageDialog(null, "Alun@ "+
+                                        alunoDeletado.getNome()+" foi deletad@ com sucesso!");
+                            }
+
                         }
                     }
-
-                    String resposta = JOptionPane.showInputDialog("Deseja realmente deletar" +
-                            " este alun@ ? \n      Digite S p/ sim ou N p/ nao.");
-
-                    if(resposta.equalsIgnoreCase("S")){
-                        alunoDeletado = alunos.get(i);
-                        alunos.remove(alunoDeletado);
-                        JOptionPane.showMessageDialog(null, "Alun@ "+
-                                alunoDeletado.getNome()+" foi deletad@ com sucesso!");
-                    }
-
                 }
 
             }catch (Exception e){
@@ -301,12 +318,12 @@ public class FuncoesUsuario {
 
     public boolean atualizarUsuario() {
 
+        Aluno alunAtualizar;
         String usuarioEscolhido = JOptionPane.showInputDialog(null,
-                "O usuario que deseja atualizar eh alun@ ?\n" +
-                        " (Digite S p/ sim ou N p/ nao)");
+                "Deseja atualizar uma pessoa ou alun@ ?\n" +
+                        " (Digite P p/ pessoa ou A p/ alun@)");
 
-        if(usuarioEscolhido.equalsIgnoreCase("s")){
-            Aluno alunAAtualizar;
+        if(usuarioEscolhido.equalsIgnoreCase("A")){
 
             try{
                 String nomeAlunAtualizar = JOptionPane.showInputDialog("Digite o nome do alun@\n " +
@@ -317,136 +334,151 @@ public class FuncoesUsuario {
 
 
                 }else if (!alunos.isEmpty()){
-                    int i = 0;
-                    while (!alunos.get(i).getNome().equalsIgnoreCase(nomeAlunAtualizar)){
-                        i++;
-                        nomeAlunAtualizar = JOptionPane.showInputDialog("Alun@ inexistente,\n" +
-                                " digite um nome existente. ");
+                    for(int i = 0; i <= alunos.size(); i++){
+
+                        if ((!alunos.get(i).getNome().equalsIgnoreCase(nomeAlunAtualizar))&& (i == alunos.size())){
+
+                            nomeAlunAtualizar = JOptionPane.showInputDialog("Alun@ inexistente," +
+                                    " digite um nome existente,\n ou cancele para escolher outra funcao. ");
+
+
+                        }else if((alunos.get(i).getNome().equalsIgnoreCase(nomeAlunAtualizar))){
+                            alunAtualizar = alunos.get(i);
+                            JOptionPane.showMessageDialog(null,"Vamos atualizar os dados da(o) alun@");
+                            String nomeAluno = JOptionPane.showInputDialog("NOME D@ ALUN@: ");
+                            alunAtualizar.setNome(nomeAluno);
+                            String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
+                                    "Exemplo: 051999888777");
+                            int tamanho = tel.length();
+
+                            while (!(tamanho == 12)){
+                                tel = JOptionPane.showInputDialog("QUANTIDADE DE DIGITOS DIFERENTE DE 12,\n DIGITE" +
+                                        "  O TELEFONE COM DDD: \n" +
+                                        "Exemplo: 051999888777");
+                                tamanho = tel.length();
+                            }
+
+                            alunAtualizar.setTelefone(tel);
+
+                            int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA DE NASCIMENTO: "));
+                            if(diaNasc < 0 || diaNasc > 31){
+                                diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA INVALIDO," +
+                                        " DIGITE UM DIA VALIDO: "));
+                            }
+
+                            int mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES DE NASCIMENTO: "));
+                            if(mesNasc < 0 || mesNasc > 12){
+                                mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES INVALIDO, " +
+                                        "DIGITE O NUMERO DE UM MES VALIDO: "));
+                            }
+
+                            int anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO DE NASCIMENTO: "));
+                            if(anoNasc < 0 || anoNasc > 2022){
+                                anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO INVALIDO, " +
+                                        "DIGITE UM ANO VALIDO: "));
+                            }
+                            alunAtualizar.setDataNascimento(new Data(diaNasc, mesNasc, anoNasc));
+
+                            String dataCriacao = alunAtualizar.getDataCriacaoUsuario();
+                            JOptionPane.showMessageDialog(null, "DATA DA CRIACAO: " +
+                                    dataCriacao);
+
+                            String dataAtualizacao = alunAtualizar.getDataAtualicacaoUsuario();
+                            JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
+                                    " ATUALIZACAO: " +dataAtualizacao);
+
+                            double notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota " +
+                                    "final do curso: "));
+                            if(notaFCurso >= 0 && notaFCurso <= 10){
+                                alunAtualizar.setNotaFinalCurso(notaFCurso);
+                            }else if(notaFCurso < 0 || notaFCurso > 10){
+                                JOptionPane.showMessageDialog(null,"Nota invalida,\n" +
+                                        " digite uma nota entre 0 e 10.");
+                            }
+
+                            alunos.add(alunAtualizar);
+                            JOptionPane.showMessageDialog(null, "Alun@ "+
+                                    alunAtualizar.getNome()+"\n foi atualizad@ com sucesso!");
+
+                        }
                     }
-                    alunAAtualizar = alunos.get(i);
-                    JOptionPane.showMessageDialog(null,"Vamos atualizar os dados da(o) alun@");
-                    String nomeAluno = JOptionPane.showInputDialog("NOME D@ ALUN@: ");
-                    alunAAtualizar.setNome(nomeAluno);
-                    String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
-                            "Exemplo: 051999888777");
-                    int tamanho = tel.length();
 
-                    while (!(tamanho == 12)){
-                        tel = JOptionPane.showInputDialog("QUANTIDADE DE DIGITOS DIFERENTE DE 12,\n DIGITE" +
-                                "  O TELEFONE COM DDD: \n" +
-                                "Exemplo: 051999888777");
-                        tamanho = tel.length();
-                    }
-
-                    alunAAtualizar.setTelefone(tel);
-
-                    int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA DE NASCIMENTO: "));
-                    if(diaNasc < 0 || diaNasc > 31){
-                        diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA INVALIDO," +
-                                " DIGITE UM DIA VALIDO: "));
-                    }
-
-                    int mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES DE NASCIMENTO: "));
-                    if(mesNasc < 0 || mesNasc > 12){
-                        mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES INVALIDO, " +
-                                "DIGITE O NUMERO DE UM MES VALIDO: "));
-                    }
-
-                    int anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO DE NASCIMENTO: "));
-                    if(anoNasc < 0 || anoNasc > 2022){
-                        anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO INVALIDO, " +
-                                "DIGITE UM ANO VALIDO: "));
-                    }
-                    alunAAtualizar.setDataNascimento(new Data(diaNasc, mesNasc, anoNasc));
-
-                    String dataCriacao = alunAAtualizar.getDataCriacaoUsuario();
-                    JOptionPane.showMessageDialog(null, "DATA DA CRIACAO: " +
-                            dataCriacao);
-
-                    String dataAtualizacao = alunAAtualizar.getDataAtualicacaoUsuario();
-                    JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
-                            " ATUALIZACAO: " +dataAtualizacao);
-
-                    double notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota " +
-                            "final do curso: "));
-                    if(notaFCurso >= 0 && notaFCurso <= 10){
-                        alunAAtualizar.setNotaFinalCurso(notaFCurso);
-                    }else if(notaFCurso < 0 || notaFCurso > 10){
-                        JOptionPane.showMessageDialog(null,"Nota invalida,\n" +
-                                " digite uma nota entre 0 e 10.");
-                    }
-
-                    alunos.add(alunAAtualizar);
-                    JOptionPane.showMessageDialog(null, "Alun@ "+
-                            alunAAtualizar.getNome()+"\n foi atualizad@ com sucesso!");
                 }
 
             }catch (Exception e){
                 return false;
             }
-        }else if(usuarioEscolhido.equalsIgnoreCase("n")){
+        }else if(usuarioEscolhido.equalsIgnoreCase("P")){
 
             try{
+
+                Pessoa pessoaAtualizar;
                 String nomePessoaAtualizar = JOptionPane.showInputDialog("Digite o nome de uma pessoa\n " +
                         "que deseja atualizar: ");
-                Pessoa pessoaAAtualizar;
 
                 if(pessoas.isEmpty()){
                     JOptionPane.showMessageDialog(null,"Nao eh possivel atualizar " +
                             "pois nao ha\n pessoas criadas, cadastre uma no criar usuario.");
 
 
+
                 }else if(!pessoas.isEmpty()){
+                    for(int i = 0; i < pessoas.size(); i++){
 
-                    int i = 0;
-                    while (!pessoas.get(i).getNome().equalsIgnoreCase(nomePessoaAtualizar)){
-                        i++;
-                        nomePessoaAtualizar = JOptionPane.showInputDialog("Pessoa inexistente,\n" +
-                                " digite um nome existente. ");
+                        if(!pessoas.get(i).getNome().equalsIgnoreCase(nomePessoaAtualizar) ){
+                            JOptionPane.showMessageDialog(null,
+                                    " Nome inexistente, clique ok e tente novamente\n      " +
+                                            "ou cancel e escolha outra funcao. ");
 
+                        }else if(pessoas.get(i).getNome().equalsIgnoreCase(nomePessoaAtualizar)){
+                            pessoaAtualizar = pessoas.get(i);
+                            JOptionPane.showMessageDialog(null,"Vamos atualizar os dados da pessoa");
+                            String nomePessoa = JOptionPane.showInputDialog("NOME: ");
+                            pessoaAtualizar.setNome(nomePessoa);
+
+
+                            String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
+                                    "Exemplo: 051999888777");
+                            pessoaAtualizar.setTelefone(tel);
+
+                            int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA DE NASCIMENTO: "));
+                            if(diaNasc < 0 || diaNasc > 31){
+                                diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA INVALIDO," +
+                                        " DIGITE UM DIA VALIDO: "));
+                            }
+
+                            int mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES DE NASCIMENTO: "));
+                            if(mesNasc < 0 || mesNasc > 12){
+                                mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES INVALIDO, " +
+                                        "DIGITE O NUMERO DE UM MES VALIDO: "));
+                            }
+
+                            int anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO DE NASCIMENTO: "));
+                            if(anoNasc < 0 || anoNasc > 2022){
+                                anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO INVALIDO, " +
+                                        "DIGITE UM ANO VALIDO: "));
+                            }
+                            pessoaAtualizar.setDataNascimento(new Data(diaNasc, mesNasc, anoNasc));
+
+                            String dataCriacao = pessoaAtualizar.getDataCriacaoUsuario();
+                            JOptionPane.showMessageDialog(null, "DATA DA CRIACAO: " +
+                                    dataCriacao);
+
+                            String dataAtualizacao = pessoaAtualizar.getDataAtualicacaoUsuario();
+                            JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
+                                    " ATUALIZACAO: " +dataAtualizacao);
+
+                            pessoas.add(pessoaAtualizar);
+                            JOptionPane.showMessageDialog(null, "Usuario "+
+                                    pessoaAtualizar.getNome()+"\n foi atualizado com sucesso!");
+                            break;
+
+                        }
 
                     }
-                    pessoaAAtualizar = pessoas.get(i);
-                    JOptionPane.showMessageDialog(null,"Vamos atualizar os dados da pessoa");
-                    String nomePessoa = JOptionPane.showInputDialog("NOME: ");
-                    pessoaAAtualizar.setNome(nomePessoa);
 
-
-                    String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
-                            "Exemplo: 051999888777");
-                    pessoaAAtualizar.setTelefone(tel);
-
-                    int diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA DE NASCIMENTO: "));
-                    if(diaNasc < 0 || diaNasc > 31){
-                        diaNasc = Integer.parseInt(JOptionPane.showInputDialog("DIA INVALIDO," +
-                                " DIGITE UM DIA VALIDO: "));
-                    }
-
-                    int mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES DE NASCIMENTO: "));
-                    if(mesNasc < 0 || mesNasc > 12){
-                        mesNasc = Integer.parseInt(JOptionPane.showInputDialog("MES INVALIDO, " +
-                                "DIGITE O NUMERO DE UM MES VALIDO: "));
-                    }
-
-                    int anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO DE NASCIMENTO: "));
-                    if(anoNasc < 0 || anoNasc > 2022){
-                        anoNasc = Integer.parseInt(JOptionPane.showInputDialog("ANO INVALIDO, " +
-                                "DIGITE UM ANO VALIDO: "));
-                    }
-                    pessoaAAtualizar.setDataNascimento(new Data(diaNasc, mesNasc, anoNasc));
-
-                    String dataCriacao = pessoaAAtualizar.getDataCriacaoUsuario();
-                    JOptionPane.showMessageDialog(null, "DATA DA CRIACAO: " +
-                            dataCriacao);
-
-                    String dataAtualizacao = pessoaAAtualizar.getDataAtualicacaoUsuario();
-                    JOptionPane.showMessageDialog(null, "DATA DA ULTIMA" +
-                            " ATUALIZACAO: " +dataAtualizacao);
-
-                    pessoas.add(pessoaAAtualizar);
-                    JOptionPane.showMessageDialog(null, "Usuario "+
-                            pessoaAAtualizar.getNome()+"\n foi atualizado com sucesso!");
                 }
+
 
             }catch (Exception e){
                 return false;
