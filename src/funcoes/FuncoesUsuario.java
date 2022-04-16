@@ -47,7 +47,7 @@ public class FuncoesUsuario {
                         }
                     }
                 }
-               aluno.setNome(nomeAluno);
+                aluno.setNome(nomeAluno);
 
                 String tel = JOptionPane.showInputDialog("TELEFONE COM DDD: \n" +
                         "Exemplo: 051999888777");
@@ -91,10 +91,10 @@ public class FuncoesUsuario {
 
                 double notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota " +
                         "final do curso: "));
-                    while(notaFCurso < 0 || notaFCurso > 10){
-                        notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota invalida," +
-                                " digite uma nota entre 0 e 10."));
-                    }
+                while(notaFCurso < 0 || notaFCurso > 10){
+                    notaFCurso = Double.parseDouble(JOptionPane.showInputDialog("Nota invalida," +
+                            " digite uma nota entre 0 e 10."));
+                }
                 aluno.setNotaFinalCurso(notaFCurso);
                 alunos.add(aluno);
                 JOptionPane.showMessageDialog(null, "Alun@ "+
@@ -235,7 +235,7 @@ public class FuncoesUsuario {
 
                 }else if (!pessoas.isEmpty()) {
 
-                   for(int i = 0; i < pessoas.size(); i++) {
+                    for(int i = 0; i < pessoas.size(); i++) {
 
                         if(!(pessoas.get(i).getNome().equalsIgnoreCase(pessoaADeletar)) && i == pessoas.size()){
 
