@@ -8,8 +8,8 @@ public class Pessoa {
     protected String nome;
     protected String telefone ;
     protected Data dataNascimento;
-    protected LocalDate dataCriacaoUsuario = LocalDate.now();
-    protected LocalDate dataAtualicacaoUsuario = LocalDate.now();
+    protected LocalDate dataCriacaoUsuario;
+    protected LocalDate dataAtualicacaoUsuario;
 
     public Pessoa(String nome, String telefone, Data dataNascimento,
                   LocalDate dataCriacaoUsuario, LocalDate dataAtualicacaoUsuario) {
@@ -50,16 +50,19 @@ public class Pessoa {
     }
 
     public String getDataCriacaoUsuario() {
-        DateTimeFormatter dataCriacao = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+
         dataCriacaoUsuario = LocalDate.now();
-        return dataCriacao.format(dataCriacaoUsuario);
+        DateTimeFormatter dataCriacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataCriacaoFormatada = dataCriacaoUsuario.format(dataCriacao);
+        return dataCriacaoFormatada;
     }
 
      public String getDataAtualicacaoUsuario() {
-         DateTimeFormatter dataAtualizacao = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-         dataAtualicacaoUsuario = LocalDate.now();
-         return dataAtualizacao.format(dataAtualicacaoUsuario);
 
+         dataAtualicacaoUsuario = LocalDate.now();
+         DateTimeFormatter dataAtualizacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         String dataAtualizacaoFormatada = dataAtualicacaoUsuario.format(dataAtualizacao);
+        return dataAtualizacaoFormatada;
     }
 
     @Override
@@ -67,8 +70,8 @@ public class Pessoa {
         return "\nNOME: "+this.nome +
                 "\nTELEFONE: "+ this.telefone +
                 "\nDATA DE NASCIMENTO: "+ this.dataNascimento +
-                "\nDATA DA CRIACAO: "+ this.dataCriacaoUsuario +
-                "\nDATA DA ULTIMA ATUALIZACAO: "+this.dataAtualicacaoUsuario+
+                "\nDATA DA CRIACAO: "+ getDataCriacaoUsuario() +
+                "\nDATA DA ULTIMA ATUALIZACAO: "+getDataAtualicacaoUsuario()+
                 "\n__________________________________________________________";
     }
 

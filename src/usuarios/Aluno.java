@@ -32,8 +32,8 @@ public class Aluno extends Pessoa{
                 "\n\nNOME DO ALUNO: " + this.nome +
                 "\nTELEFONE: "+ this.telefone +
                 "\nDATA DE NASCIMENTO: " + this.dataNascimento +
-                "\nDATA DE CRIACAO DO USUARIO: " + this.dataCriacaoUsuario +
-                "\nDATA DA ULTIMA ATUALIZACAO DO USUARIO: " + this.dataAtualicacaoUsuario +
+                "\nDATA DE CRIACAO DO USUARIO: " + getDataCriacaoUsuario()+
+                "\nDATA DA ULTIMA ATUALIZACAO DO USUARIO: " + getDataAtualicacaoUsuario() +
                 "\nNOTA FINAL DO CURSO: "+ this.notaFinalCurso+
                 "\n________________________________________________________________________";
     }
